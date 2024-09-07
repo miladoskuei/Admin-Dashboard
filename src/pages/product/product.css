@@ -1,0 +1,23 @@
+.product {
+    flex: 4;
+    padding: 1rem;
+}
+
+.productTitleContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.productAddButton {
+    width: 5rem;
+    border: none;
+    padding: 0.6rem;
+    cursor: pointer;
+    color: white;
+    background-color: teal;
+    border-radius: 0.4rem;
+    flex: 1;
+    font-size: 1rem;
+    font-weight: 600;
+}

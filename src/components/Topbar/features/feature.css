@@ -1,0 +1,56 @@
+.features {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    row-gap: 2rem;
+    gap: 2rem;
+}
+
+.feature-item {
+    text-align: center;
+    flex: auto;
+    padding: 1.2rem;
+    border-radius: 1rem;
+    background-color: #fff;
+    box-shadow: 0 0 15px -10px rgba(0, 0, 0, 0.75);
+
+}
+
+.feature-title {
+    font-size: 1.6rem;
+    /* font-weight: 600; */
+}
+
+.feature-container {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem 0rem;
+    gap: 1rem;
+}
+
+.feature-cost {
+    
+    font-weight: 600;
+    font-size: 2rem;
+}
+
+.feature-changes {
+    display: flex;
+    align-items: center;
+}
+
+.feature-icon {
+    color: green;
+}
+
+.feature-icon.negative {
+    color: red;
+}
+
+.feature-sub {
+    font-size: 1rem;
+    color: gray;
+}

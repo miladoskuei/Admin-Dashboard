@@ -1,0 +1,53 @@
+.userTable {
+    flex: 4;
+    border: none;
+    padding: 1rem;
+    /* padding: 0 4rem; */
+}
+.data-grid{
+    padding: 0 4rem;
+}
+
+.userRowContainer {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.userImg {
+    width: 2.4rem;
+    height: 2.4rem;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+
+.edit {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    /* display: block; */
+
+
+}
+
+.btnEdit {
+    border: none;
+    border-radius: 10px;
+    padding: 5px 10px;
+    color: white;
+    background-color: #3bb077;
+    cursor: pointer;
+
+}
+.btncontainer{
+    display: flex;
+    align-items: center;
+    height: 100%;
+    gap: 1rem;
+}
+.iconcontainer{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}

@@ -1,0 +1,165 @@
+.userTable {
+    flex: 4;
+    border: none;
+    padding: 1rem;
+    min-width: 10rem;
+    /* padding: 0 4rem; */
+}
+
+.data-grid {
+    display: flex;
+
+    padding: 0rem 0rem;
+}
+
+.userRowContainer {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.userImg {
+    width: 2.4rem;
+    height: 2.4rem;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.edit {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    /* display: block; */
+}
+
+.btnEdit {
+    border: none;
+    border-radius: 10px;
+    padding: 5px 10px;
+    color: white;
+    background-color: #3bb077;
+    cursor: pointer;
+}
+
+.btncontainer {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    gap: 1rem;
+}
+
+.iconcontainer {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.productTop {
+    display: flex;
+    margin-top: 2rem;
+    padding: 1rem;
+}
+
+.productTopLeft,
+.productTopRight {
+    flex: 1;
+}
+
+.productTopRight {
+    margin-left: 2rem;
+    padding: 1.2rem;
+    box-shadow: 0 0 15px -10px rgba(0, 0, 0, 0.75);
+}
+
+.productInfoTop {
+    display: flex;
+    align-items: center;
+}
+
+.productInfoImg {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    margin-right: 1.2rem;
+}
+
+.productName {
+    font-weight: 600;
+}
+
+.productInfoBottom {
+    margin-top: 0.8rem;
+}
+
+.productInfoItem {
+    width: 10rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.productItemKey {
+    font-weight: 600;
+}
+
+.productItemValue {
+    font-weight: 300;
+}
+
+.productBottom {
+    padding: 1.1rem;
+    margin: 1.1rem;
+    box-shadow: 0 0 15px -10px rgba(0, 0, 0, 0.75);
+}
+
+.productForm {
+    display: flex;
+    justify-content: space-between;
+}
+
+.productFormFeft {
+    display: flex;
+    flex-direction: column;
+}
+
+.productFormFeft>label {
+    margin-bottom: 0.7rem;
+    color: gray;
+    padding: 0.2rem;
+    border: none;
+    border-bottom: 1px solid gray;
+}
+
+.productFormFeft>label:focus {
+    outline: none;
+}
+
+.productFormFeft>select {
+    margin-bottom: 0.8rem;
+}
+
+.productFormRight {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.productUploader {
+    display: flex;
+    align-items: center;
+}
+
+.productUploadImg {
+    width: 7rem;
+    height: 7rem;
+    border-radius: 1rem;
+    margin-right: 1.2rem;
+}
+
+.productButton {
+    border: none;
+    padding: 0.4rem;
+    border-radius: 0.5rem;
+    background-color: darkblue;
+    color: white;
+    cursor: pointer;
+}
