@@ -4,6 +4,8 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import "./topbar.css";
 import { useMediaQuery } from "react-responsive";
 import MenuIcon from "@mui/icons-material/Menu";
+import NotificationMenu from "./Notfications/Notfications";
+import SettingsMenu from "./settings/Setting";
 
 export default function Topbar({setHamburgerSidebar}) {
   const isDesktop = useMediaQuery({ minWidth: 768 });
@@ -17,17 +19,14 @@ export default function Topbar({setHamburgerSidebar}) {
 
         <div className="rightTopbar">
           <div className="rightIconContainer">
-            <NotificationsNoneIcon></NotificationsNoneIcon>
-            <span className="badge">2</span>
+            <NotificationMenu></NotificationMenu>
+
+
           </div>
           <div className="rightIconContainer">
-            <SettingsIcon></SettingsIcon>
-            <span className="badge">2</span>
+            <SettingsMenu></SettingsMenu>
           </div>
-          <div className="rightIconContainer">
-            <NotificationsNoneIcon></NotificationsNoneIcon>
-            <span className="badge">2</span>
-          </div>
+
         </div>
       </div>
     </div>
