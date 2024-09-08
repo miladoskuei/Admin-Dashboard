@@ -11,7 +11,7 @@ export default function Home() {
 
   return (
     <div style={{flex:4, padding: "1rem",display:'flex', flexDirection:'column', gap:'2rem',overflowX:'hidden' }}>
-      <h1 style={{ textAlign: "center" }}>Welcome</h1>
+      <h1 style={{ textAlign: "center" }}>Welcome dashboard</h1>
       <Feature></Feature>
       <Chart yaxis='value' title="salary" grid data={costChartDatas} dataKey="value" ></Chart>
       {/* <p>This is the home page.</p>
