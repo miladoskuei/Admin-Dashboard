@@ -21,7 +21,7 @@ function App() {
   }
 
   return (
-    <div style={{ height:'100vh',overflow:'hidden' }}>
+    <div style={{ height: "100vh", overflow: "hidden" }}>
       <Topbar setHamburgerSidebar={HamburgerSidebar}> </Topbar>{" "}
       <div className="app-container">
         {" "}

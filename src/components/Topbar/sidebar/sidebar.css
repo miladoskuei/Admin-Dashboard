@@ -5,10 +5,12 @@
     position: sticky;
     top: 50px;
     left: 0px;
-    width: 25%;
+    flex: 1;
+    /* width: 25%; */
     height: 100vh;
     border-right: 1px solid rgb(208, 208, 208);
     overflow-x: auto;
+    min-width: 10rem;
     }
 
 .link {
