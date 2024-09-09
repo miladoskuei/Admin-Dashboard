@@ -31,7 +31,6 @@ export default function Home() {
       >
         {" "}
       </Chart>{" "}
-
       {isLarge ? (
         <div
           className="widgets"
@@ -39,9 +38,12 @@ export default function Home() {
         >
           <Widgetsm> </Widgetsm> <Widgetlg> </Widgetlg>
         </div>
-      ):<> <Widgetsm></Widgetsm>
-      <Widgetlg></Widgetlg></>}{" "}
-      
+      ) : (
+        <>
+          {" "}
+          <Widgetsm> </Widgetsm> <Widgetlg> </Widgetlg>
+        </>
+      )}{" "}
     </div>
   );
 }

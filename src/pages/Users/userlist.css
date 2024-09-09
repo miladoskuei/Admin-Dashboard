@@ -2,6 +2,8 @@
     flex: 4;
     border: none;
     padding: 1rem;
+    overflow-x: hidden;
+    
     /* padding: 0 4rem; */
 }
 .data-grid{
