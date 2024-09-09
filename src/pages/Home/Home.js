@@ -5,8 +5,10 @@ import Chart from "../../components/Topbar/chart/Chart";
 import { costChartDatas } from "../../datas/routes/costChartDatas";
 import Widgetsm from "../../components/Topbar/widgetsm/Widgetsm";
 import Widgetlg from "../../components/Topbar/widgetlg/Widgetlg";
+import { useMediaQuery } from "react-responsive";
 
 export default function Home() {
+  const isLarge = useMediaQuery({ minWidth: 1540 });
   return (
     <div
       style={{
@@ -18,7 +20,6 @@ export default function Home() {
         overflowX: "hidden",
       }}
     >
-      <img src="logo192.png"></img>{" "}
       <h1 style={{ textAlign: "center" }}> Welcome dashboard </h1>{" "}
       <Feature> </Feature>{" "}
       <Chart
@@ -30,14 +31,17 @@ export default function Home() {
       >
         {" "}
       </Chart>{" "}
-      {/* <p>This is the home page.</p>
-                    <Link to={'/users'}>users</Link> */}{" "}
-      <div
-        className="widgets"
-        style={{ display: "flex", gap: "2rem", flexWrap: "wrap" }}
-      >
-        <Widgetsm> </Widgetsm> <Widgetlg> </Widgetlg>
-      </div>{" "}
+
+      {isLarge ? (
+        <div
+          className="widgets"
+          style={{ display: "flex", gap: "2rem", flexWrap: "wrap" }}
+        >
+          <Widgetsm> </Widgetsm> <Widgetlg> </Widgetlg>
+        </div>
+      ):<> <Widgetsm></Widgetsm>
+      <Widgetlg></Widgetlg></>}{" "}
+      
     </div>
   );
 }
