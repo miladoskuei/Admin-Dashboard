@@ -13,6 +13,7 @@ import { clear } from "@testing-library/user-event/dist/clear";
 
 export default function Products() {
   const [products, setproducts] = useState(ourProducts);
+  
 
   function deleteProdcuts(id) {
     console.log(id);
@@ -91,12 +92,9 @@ export default function Products() {
     },
   ];
 
-
   return (
-
-    <div style={{backgroundColor:'#5ff'}} className="userTable">
-      <DataGrid  className="data-grid" rows={products} columns={columns} />{" "}
+    <div className="userTable">
+      <DataGrid className="data-grid" rows={products} columns={columns} />{" "}
     </div>
-    
   );
 }

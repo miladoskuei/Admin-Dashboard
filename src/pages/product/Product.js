@@ -4,7 +4,9 @@ import "./product.css";
 import Chart from "../../components/Topbar/chart/Chart";
 import { product } from "../../datas/routes/productData";
 import PublishIcon from "@mui/icons-material/Publish";
+import { useMediaQuery } from "react-responsive";
 export default function Product() {
+  const isLarge = useMediaQuery({ minWidth: 1540 });
   console.log(product);
   return (
     <div className="product">
@@ -72,10 +74,9 @@ export default function Product() {
               <label for="">
                 <PublishIcon> </PublishIcon>{" "}
               </label>{" "}
-              <input type="file"style={{ display: "none" }} name="" id="" />
+              <input type="file" style={{ display: "none" }} name="" id="" />
             </div>{" "}
-
-            <button className="productButton"> upload Edit</button>{" "}
+            <button className="productButton"> upload Edit </button>{" "}
           </div>{" "}
         </form>{" "}
       </div>{" "}
