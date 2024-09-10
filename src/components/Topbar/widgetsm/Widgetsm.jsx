@@ -63,7 +63,7 @@ export default function Widgetsm() {
         {users &&
           users.map((user, index) => (
             <li key={index} className="widget-list-item">
-              <img className="widget-img" src="favicon.ico" alt="User" />
+              <img className="widget-img" src={`${process.env.PUBLIC_URL}/logo192.png`} alt="User" />
               <div className="user">
                 <span className="username"> {user[1].username} </span>{" "}
                 <span className="user-role"> {user[1].role} </span>{" "}

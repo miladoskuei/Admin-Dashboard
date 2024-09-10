@@ -8,7 +8,7 @@ import "./products.css";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { ourProducts } from "../../datas/routes/ourUsers";
 import { clear } from "@testing-library/user-event/dist/clear";
-
+import { useMediaQuery } from "react-responsive";
 // import "DeleteOutlineIcon" from "@mui/icons-material/DeleteOutline";
 
 export default function Products() {
@@ -42,7 +42,7 @@ export default function Products() {
         return (
           <>
             <div className="userRowContainer">
-              <img className="userImg" src={params.row.img} alt="" />{" "}
+              <img className="userImg" src={`${process.env.PUBLIC_URL}/${params.row.img}`} alt="" />{" "}
               {params.row.title}{" "}
             </div>{" "}
           </>

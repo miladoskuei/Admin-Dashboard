@@ -7,6 +7,7 @@ import PublishIcon from "@mui/icons-material/Publish";
 import { useMediaQuery } from "react-responsive";
 export default function Product() {
   const isLarge = useMediaQuery({ minWidth: 1540 });
+  const isSmall = useMediaQuery({ maxWidth: 700 });
   console.log(product);
   return (
     <div className="product">
@@ -17,7 +18,10 @@ export default function Product() {
         </Link>{" "}
       </div>{" "}
       <div className="productTop">
-        <div className="productTopLeft">
+        <div
+          className="productTopLeft"
+          style={!isSmall ? { minWidth: "30rem" } : { minWidth: "auto" }}
+        >
           <Chart
             yaxis="sale"
             title="products"
@@ -29,9 +33,13 @@ export default function Product() {
             ss{" "}
           </Chart>{" "}
         </div>{" "}
-        <div className="productTopRight">
+        <div
+          className="productTopRight"
+          style={!isSmall ? { minWidth: "30rem" } : { minWidth: "100%" }}
+        >
           <div className="productInfoTop">
-            <img src="/logo192.png" alt="" className="productInfoImg" />
+
+            <img src={`${process.env.PUBLIC_URL}/logo192.png`} alt="" className="productInfoImg" />
             <span className="productName"> labtop </span>{" "}
           </div>{" "}
           <div className="productInfoBottom">
@@ -70,7 +78,7 @@ export default function Product() {
           </div>{" "}
           <div className="productFormRight">
             <div className="productUploader">
-              <img className="productUploadImg" src="/logo192.png" alt="" />
+              <img className="productUploadImg" src={`${process.env.PUBLIC_URL}/logo192.png`} alt="" />
               <label for="">
                 <PublishIcon> </PublishIcon>{" "}
               </label>{" "}

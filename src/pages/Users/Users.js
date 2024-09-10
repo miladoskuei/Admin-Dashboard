@@ -28,16 +28,18 @@ export default function Users() {
       headerName: "user",
       width: 200,
       renderCell: (params) => {
+        console.log('params is :::',params)
         return (
           <Link to="/" className="link">
             <div className="userRowContainer">
-              <img className="userImg" src={params.row.avatar} alt="" />{" "}
+              <img className="userImg" src={`${process.env.PUBLIC_URL}/${params.row.avatar}`}  alt="" />{" "}
               {params.row.username}{" "}
             </div>{" "}
           </Link>
         );
       },
     },
+    
     {
       field: "email",
       headerName: "email",

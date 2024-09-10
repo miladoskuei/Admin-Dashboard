@@ -29,7 +29,7 @@ export default function Widgetlg() {
         {transactions.map((transaction) => (
           <tr className="widgetLgTr">
             <td className="widgetLgUser">
-              <img className="widgetLgImg" src="logo192.png" alt="" />
+              <img className="widgetLgImg" src={`${process.env.PUBLIC_URL}/logo192.png`} alt="" />
               <span className="widgetLgName">
                 {" "}
                 {transaction.customer}{" "}
