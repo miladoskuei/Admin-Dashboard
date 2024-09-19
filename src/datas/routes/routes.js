@@ -3,11 +3,16 @@ import Users from "../../pages/Users/Users";
 import Newuser from "../../pages/Newusers/Newuser";
 import Products from "../../pages/products/Products";
 import Product from "../../pages/product/Product";
+import AddProduct from "../../pages/adduser/Add.js";
 
 const myroutes = [
   {
     path: "/",
     element: <Home />,
+  },
+  {
+    path: "/Addproducts",
+    element: <AddProduct />,
   },
   {
     path: "/users",
@@ -27,7 +32,7 @@ const myroutes = [
   },
   {
     path: "/products/:productId",
-    element:<Product />
-  }
+    element: <Product />,
+  },
 ];
 export default myroutes;

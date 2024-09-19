@@ -11,7 +11,7 @@
 }
 
 .productAddButton {
-    width: 5rem;
+    width: auto;
     border: none;
     padding: 0.6rem;
     cursor: pointer;

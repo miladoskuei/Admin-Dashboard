@@ -1,19 +1,36 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { DataGrid } from "@mui/x-data-grid";
-import { ourUser } from "../../datas/routes/ourUsers";
 import { useState } from "react";
-import { width } from "@mui/system";
 import "./products.css";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { ourProducts } from "../../datas/routes/ourUsers";
 import { clear } from "@testing-library/user-event/dist/clear";
-import { useMediaQuery } from "react-responsive";
+
+import { fetchDatas } from "../../helpers/fetch";
+import { useQuery } from "react-query";
 // import "DeleteOutlineIcon" from "@mui/icons-material/DeleteOutline";
 
 export default function Products() {
-  const [products, setproducts] = useState(ourProducts);
-  
+  const [products, setproducts] = useState([]);
+
+  useEffect(() => {
+    fetchDatas(
+      "https://myproject-4e193-default-rtdb.firebaseio.com/products.json"
+    )
+      .then((data) => {
+        const transformedArray = data.map((subArray) => subArray[1]);
+        const finalArray = transformedArray.filter(item => {
+
+          return item !== null
+          
+        })
+
+        setproducts(finalArray);
+        console.log("transformed array is :", transformedArray.slice(1));
+      })
+      .catch((error) => console.error("Error fetching data:", error));
+  }, []);
 
   function deleteProdcuts(id) {
     console.log(id);
@@ -28,29 +45,33 @@ export default function Products() {
 
   const columns = [
     {
-      field: "id",
+      field: "code",
       headerName: "id",
       width: 200,
     },
     {
       editable: true,
-      field: "title",
+      field: "name",
       headerName: "title",
       width: 200,
-      renderCell: (params) => {
-        console.log("params :", params);
-        return (
-          <>
-            <div className="userRowContainer">
-              <img className="userImg" src={`${process.env.PUBLIC_URL}/${params.row.img}`} alt="" />{" "}
-              {params.row.title}{" "}
-            </div>{" "}
-          </>
-        );
-      },
+      // renderCell: (params) => {
+      //   console.log("params :", params);
+      //   return (
+      //     <>
+      //       <div className="userRowContainer">
+      //         <img
+      //           className="userImg"
+      //           src={`${process.env.PUBLIC_URL}/${params.row.img}`}
+      //           alt=""
+      //         />{" "}
+      //         {params.row.title}{" "}
+      //       </div>{" "}
+      //     </>
+      //   );
+      // },
     },
     {
-      field: "cost",
+      field: "price",
       headerName: "price",
       width: 240,
     },
@@ -72,13 +93,13 @@ export default function Products() {
         return (
           <>
             <div className="btncontainer">
-              <Link className="edit" to={`/products/${params.row.id}`}>
+              <Link className="edit" to={`/products/${params.row.code}`}>
                 <button className="btnEdit"> Edit </button>{" "}
               </Link>{" "}
               <div className="iconcontainer">
                 <DeleteOutlineIcon
                   onClick={() => {
-                    deleteProdcuts(params.row.id);
+                    deleteProdcuts(params.row.code);
                   }}
                   className="deleteBtn"
                 >
@@ -94,7 +115,7 @@ export default function Products() {
 
   return (
     <div className="userTable">
-      <DataGrid className="data-grid" rows={products} columns={columns} />{" "}
+      <DataGrid className="data-grid" rows={products} columns={columns} getRowId={(row) => row.code} />{" "}
     </div>
   );
 }

@@ -109,15 +109,19 @@
 .productInfoItem {
     width: 10rem;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
+    width: 100%;
 }
 
 .productItemKey {
     font-weight: 600;
+    width: 6rem;
 }
 
 .productItemValue {
     font-weight: 300;
+    width: 6rem;
+    
 }
 
 .productBottom {

@@ -5,6 +5,8 @@ import Chart from "../../components/Topbar/chart/Chart";
 import { product } from "../../datas/routes/productData";
 import PublishIcon from "@mui/icons-material/Publish";
 import { useMediaQuery } from "react-responsive";
+import { useNavigate } from "react-router-dom";
+
 export default function Product() {
   const isLarge = useMediaQuery({ minWidth: 1540 });
   const isSmall = useMediaQuery({ maxWidth: 700 });
@@ -13,8 +15,14 @@ export default function Product() {
     <div className="product">
       <div className="productTitleContainer">
         <h1> product name </h1>{" "}
-        <Link>
-          <button className="productAddButton"> add </button>{" "}
+        <Link to={'/Addproducts'}>
+          <button
+            className="productAddButton"
+           
+          >
+            {" "}
+            Add Product{" "}
+          </button>{" "}
         </Link>{" "}
       </div>{" "}
       <div className="productTop">
@@ -38,8 +46,11 @@ export default function Product() {
           style={!isSmall ? { minWidth: "30rem" } : { minWidth: "100%" }}
         >
           <div className="productInfoTop">
-
-            <img src={`${process.env.PUBLIC_URL}/logo192.png`} alt="" className="productInfoImg" />
+            <img
+              src={`${process.env.PUBLIC_URL}/logo192.png`}
+              alt=""
+              className="productInfoImg"
+            />
             <span className="productName"> labtop </span>{" "}
           </div>{" "}
           <div className="productInfoBottom">
@@ -78,7 +89,11 @@ export default function Product() {
           </div>{" "}
           <div className="productFormRight">
             <div className="productUploader">
-              <img className="productUploadImg" src={`${process.env.PUBLIC_URL}/logo192.png`} alt="" />
+              <img
+                className="productUploadImg"
+                src={`${process.env.PUBLIC_URL}/logo192.png`}
+                alt=""
+              />
               <label for="">
                 <PublishIcon> </PublishIcon>{" "}
               </label>{" "}
