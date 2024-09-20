@@ -20,14 +20,11 @@ export default function Products() {
     )
       .then((data) => {
         const transformedArray = data.map((subArray) => subArray[1]);
-        const finalArray = transformedArray.filter(item => {
-
-          return item !== null
-          
-        })
+        const finalArray = transformedArray.filter((item) => {
+          return item !== null;
+        });
 
         setproducts(finalArray);
-        console.log("transformed array is :", transformedArray.slice(1));
       })
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
@@ -75,6 +72,11 @@ export default function Products() {
       headerName: "price",
       width: 240,
     },
+    {
+      field: "stock",
+      headerName: "Inventory",
+      width: 240,
+    },
     // {
     //   field: "status",
     //   headerName: "status",
@@ -115,7 +117,15 @@ export default function Products() {
 
   return (
     <div className="userTable">
-      <DataGrid className="data-grid" rows={products} columns={columns} getRowId={(row) => row.code} />{" "}
+      <DataGrid
+        className="data-grid"
+        rows={products}
+        columns={columns}
+        getRowId={(row) => row.code}
+      />{" "}
+      <Link to={"/Addproducts"}>
+        <button className="productAddButton"> Add Product </button>{" "}
+      </Link>{" "}
     </div>
   );
 }

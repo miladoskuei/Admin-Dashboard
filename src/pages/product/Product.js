@@ -1,29 +1,75 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./product.css";
 import Chart from "../../components/Topbar/chart/Chart";
-import { product } from "../../datas/routes/productData";
+import { product as productDatas } from "../../datas/routes/productData";
 import PublishIcon from "@mui/icons-material/Publish";
 import { useMediaQuery } from "react-responsive";
 import { useNavigate } from "react-router-dom";
+import { database } from "../../firebaseConfig";
+import { useEffect } from "react";
+
+import { ref, get, update } from "firebase/database";
+
+import { useParams } from "react-router-dom";
 
 export default function Product() {
   const isLarge = useMediaQuery({ minWidth: 1540 });
   const isSmall = useMediaQuery({ maxWidth: 700 });
-  console.log(product);
+
+  const [product, setProduct] = useState({});
+  const [productName, setProductName] = useState("");
+  const [productPrice, setProductPrice] = useState("");
+  const [productInventory, setProductInventory] = useState("");
+  const [componentKey, setComponentKey] = useState(Date.now());
+  const { productId } = useParams();
+
+  console.log(database);
+  useEffect(() => {
+    const fetchProduct = async () => {
+      const productRef = ref(database, "products/" + `${productId}`); // Assuming "2" is the product ID
+      const snapshot = await get(productRef);
+      console.log("Current product data:", snapshot.val());
+
+      if (snapshot.exists()) {
+        setProduct(snapshot.val());
+        setProductName(snapshot.val().name);
+        setProductPrice(snapshot.val().price);
+        setProductInventory(snapshot.val().stock);
+      } else {
+        console.log("No such document!");
+      }
+    };
+
+    fetchProduct();
+  }, [productId, componentKey]);
+  const updateProduct = async (productId, updatedProduct) => {
+    const productRef = ref(database, `products/${productId}`);
+    try {
+      await update(productRef, updatedProduct);
+      console.log("Product updated successfully!");
+    } catch (error) {
+      console.error("Error updating product:", error);
+    }
+  };
+
+  const submitEditHandler = async (e) => {
+    e.preventDefault();
+    const updatedProduct = {
+      name: productName,
+      price: productPrice,
+      stock: productInventory,
+    };
+    await updateProduct(productId, updatedProduct);
+
+    alert("Product updated successfully!");
+    setComponentKey(Date.now());
+  };
+
   return (
     <div className="product">
       <div className="productTitleContainer">
-        <h1> product name </h1>{" "}
-        <Link to={'/Addproducts'}>
-          <button
-            className="productAddButton"
-           
-          >
-            {" "}
-            Add Product{" "}
-          </button>{" "}
-        </Link>{" "}
+        <h1> {product.name} </h1>{" "}
       </div>{" "}
       <div className="productTop">
         <div
@@ -34,7 +80,7 @@ export default function Product() {
             yaxis="sale"
             title="products"
             grid
-            data={product}
+            data={productDatas}
             dataKey="sale"
           >
             {" "}
@@ -56,36 +102,47 @@ export default function Product() {
           <div className="productInfoBottom">
             <div className="productInfoItem">
               <div className="productItemKey"> ID </div>{" "}
-              <div className="productItemValue"> 132 </div>{" "}
+              <div className="productItemValue"> {product.code} </div>{" "}
             </div>{" "}
             <div className="productInfoItem">
               <div className="productItemKey"> Name: </div>{" "}
-              <div className="productItemValue"> Dell labtop </div>{" "}
+              <div className="productItemValue"> {product.name} </div>{" "}
             </div>{" "}
             <div className="productInfoItem">
-              <div className="productItemKey"> sale: </div>{" "}
-              <div className="productItemValue"> 19000 % </div>{" "}
+              <div className="productItemKey"> price: </div>{" "}
+              <div className="productItemValue"> {product.price} </div>{" "}
             </div>{" "}
             <div className="productInfoItem">
-              <div className="productItemKey"> active </div>{" "}
-              <div className="productItemValue"> yes </div>{" "}
+              <div className="productItemKey"> stock </div>{" "}
+              <div className="productItemValue"> {product.stock} </div>{" "}
             </div>{" "}
           </div>{" "}
         </div>{" "}
       </div>{" "}
       <div className="productBottom">
-        <form action="" className="productForm">
+        <form action="" onSubmit={submitEditHandler} className="productForm">
           <div className="productFormFeft">
             <label for=""> product name: </label>{" "}
-            <input type="text" placeholder="del labtop" />
-            <label htmlFor=""> in stock </label>{" "}
-            <select id="inStock">
-              <option value=""> yes </option> <option value=""> no </option>{" "}
-            </select>{" "}
-            <label htmlFor=""> Active </label>{" "}
-            <select id="inStock">
-              <option value=""> yes </option> <option value=""> no </option>{" "}
-            </select>{" "}
+            <input
+              type="text"
+              placeholder="del labtop"
+              value={productName}
+              onChange={(e) => {
+                setProductName(e.target.value);
+              }}
+            />{" "}
+            <label htmlFor=""> price </label>{" "}
+            <input
+              type="number"
+              value={productPrice}
+              onChange={(e) => setProductPrice(e.target.value)}
+            />{" "}
+            <label htmlFor=""> inventory </label>{" "}
+            <input
+              type="number"
+              value={productInventory}
+              onChange={(e) => setProductInventory(e.target.value)}
+            />{" "}
           </div>{" "}
           <div className="productFormRight">
             <div className="productUploader">

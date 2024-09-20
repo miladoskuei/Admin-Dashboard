@@ -18,9 +18,10 @@
 //       stock: productStock,
 //     };
 //   };
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { database } from "../../firebaseConfig";
 import { ref, set } from "firebase/database";
+import { fetchDatas } from "../../helpers/fetch";
 
 const AddProduct = () => {
   const [productCode, setProductCode] = useState("");
@@ -28,6 +29,29 @@ const AddProduct = () => {
   const [productPrice, setProductPrice] = useState("");
   const [productStock, setProductStock] = useState("");
   const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    fetchDatas(
+      "https://myproject-4e193-default-rtdb.firebaseio.com/products.json"
+    ).then((data) => {
+      if (data == null) {
+        setProductCode(1);
+        return 0; // stop the function
+      }
+      console.log(data);
+      const newArray = data.slice(1, data.length);
+      const transformedArray = newArray.map((subArray) => subArray[1]);
+      console.log(
+        "last",
+        Number(transformedArray[transformedArray.length - 1].code)
+      );
+
+      const lastCode = Number(
+        transformedArray[transformedArray.length - 1].code
+      );
+      setProductCode(lastCode + 1);
+    });
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -37,13 +61,12 @@ const AddProduct = () => {
       price: productPrice,
       stock: productStock,
     };
-
-
+    console.log(newProduct);
 
     set(ref(database, "products/" + productCode), newProduct)
       .then(() => {
         setMessage("محصول با موفقیت اضافه شد!");
-        setProductCode(prev => Number(prev) + 1);
+        setProductCode((prev) => Number(prev) + 1);
         setProductName("");
         setProductPrice("");
         setProductStock("");
@@ -59,7 +82,7 @@ const AddProduct = () => {
       <div style={inputGroupStyle}>
         <label> product code: </label>{" "}
         <input
-
+        disabled
           style={inputs}
           type="text"
           value={productCode}

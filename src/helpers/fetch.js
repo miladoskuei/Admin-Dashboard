@@ -3,5 +3,11 @@ export const fetchDatas = async (url) => {
   const data = await response.json();
   console.log("data is :", data);
 
-  return Object.entries(data);
+  if (data == null) {
+    return null;
+  }else{
+    return Object.entries(data);
+  }
+
+  
 };
