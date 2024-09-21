@@ -9,25 +9,20 @@ import { clear } from "@testing-library/user-event/dist/clear";
 
 import { fetchDatas } from "../../helpers/fetch";
 import { useQuery } from "react-query";
+import { useContext } from "react";
+import ProductsContext from "../../contexts/ProductsContext";
 // import "DeleteOutlineIcon" from "@mui/icons-material/DeleteOutline";
 
 export default function Products() {
   const [products, setproducts] = useState([]);
+  
+  const productsContext = useContext(ProductsContext);
 
-  useEffect(() => {
-    fetchDatas(
-      "https://myproject-4e193-default-rtdb.firebaseio.com/products.json"
-    )
-      .then((data) => {
-        const transformedArray = data.map((subArray) => subArray[1]);
-        const finalArray = transformedArray.filter((item) => {
-          return item !== null;
-        });
 
-        setproducts(finalArray);
-      })
-      .catch((error) => console.error("Error fetching data:", error));
-  }, []);
+useEffect(() => {
+setproducts(productsContext);
+}, [productsContext]);
+
 
   function deleteProdcuts(id) {
     console.log(id);

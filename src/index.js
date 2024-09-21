@@ -4,9 +4,9 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
-import { QueryClient , QueryClientProvider } from "react-query";
-
-import 'bootstrap/dist/css/bootstrap.css'
+import { QueryClient, QueryClientProvider } from "react-query";
+import {ProductsProvider} from "./contexts/ProductsContext";
+import "bootstrap/dist/css/bootstrap.css";
 
 const queryClient = new QueryClient();
 
@@ -15,7 +15,9 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <QueryClientProvider client={queryClient}>
-        <App/>
+        <ProductsProvider>
+          <App />
+        </ProductsProvider>{" "}
       </QueryClientProvider>{" "}
     </BrowserRouter>{" "}
   </React.StrictMode>
