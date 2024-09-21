@@ -3,7 +3,7 @@ import Users from "../../pages/Users/Users";
 import Newuser from "../../pages/Newusers/Newuser";
 import Products from "../../pages/products/Products";
 import Product from "../../pages/product/Product";
-import AddProduct from "../../pages/adduser/Add.js";
+import AddProduct from "../../pages/addProduct/Add.js";
 
 const myroutes = [
   {
