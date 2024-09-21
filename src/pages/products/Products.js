@@ -11,24 +11,38 @@ import { fetchDatas } from "../../helpers/fetch";
 import { useQuery } from "react-query";
 import { useContext } from "react";
 import ProductsContext from "../../contexts/ProductsContext";
+
+import { ref, remove } from "firebase/database";
+import { database } from "../../firebaseConfig"
 // import "DeleteOutlineIcon" from "@mui/icons-material/DeleteOutline";
 
 export default function Products() {
   const [products, setproducts] = useState([]);
-  
-  const productsContext = useContext(ProductsContext);
 
+  const { products: productsContext ,fetchProducts} = useContext(ProductsContext);
 
-useEffect(() => {
-setproducts(productsContext);
-}, [productsContext]);
+  useEffect(() => {
+    setproducts(productsContext);
+  }, [productsContext]);
 
+  // function deleteProdcuts(id) {
+  //   console.log(id);
+  //   const updatedProducts = products.filter((product) => product.code !== id);
+  //   setproducts(updatedProducts);
+  //   console.log(products)
+  // }
 
-  function deleteProdcuts(id) {
-    console.log(id);
-    const updatedProducts = products.filter((product) => product.id !== id);
-    setproducts(updatedProducts);
-  }
+  const deleteProduct = async (code) => {
+    try {
+      await remove(ref(database, `products/${code}`));
+      setproducts((prevProducts) =>
+        prevProducts.filter((product) => product.code !== code)
+      );
+      fetchProducts(); // بهروزرسانی لیست محصولات پس از حذف
+    } catch (error) {
+      console.error("Error deleting product:", error);
+    }
+  };
 
   function editProduct(params) {
     console.log(params);
@@ -96,7 +110,7 @@ setproducts(productsContext);
               <div className="iconcontainer">
                 <DeleteOutlineIcon
                   onClick={() => {
-                    deleteProdcuts(params.row.code);
+                    deleteProduct(params.row.code);
                   }}
                   className="deleteBtn"
                 >

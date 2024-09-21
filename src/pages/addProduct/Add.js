@@ -32,8 +32,7 @@ const AddProduct = () => {
   const [productStock, setProductStock] = useState("");
   const [message, setMessage] = useState("");
 
-  const Products = useContext(ProductsContext);
-  console.log("ddd", Products);
+  const { products : Products, fetchProducts } = useContext(ProductsContext);
 
   useEffect(() => {
     if (Products && Products.length > 0) {
@@ -61,6 +60,7 @@ const AddProduct = () => {
         setProductName("");
         setProductPrice("");
         setProductStock("");
+        fetchProducts();
       })
       .catch((error) => {
         console.error("Error adding product:", error);

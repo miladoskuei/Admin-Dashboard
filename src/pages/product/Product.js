@@ -12,10 +12,13 @@ import { useEffect } from "react";
 import { ref, get, update } from "firebase/database";
 
 import { useParams } from "react-router-dom";
-
+import ProductsContext from "../../contexts/ProductsContext";
+import { useContext } from "react";
 export default function Product() {
   const isLarge = useMediaQuery({ minWidth: 1540 });
   const isSmall = useMediaQuery({ maxWidth: 700 });
+
+  const { fetchProducts} = useContext(ProductsContext);
 
   const [product, setProduct] = useState({});
   const [productName, setProductName] = useState("");
@@ -48,6 +51,7 @@ export default function Product() {
     try {
       await update(productRef, updatedProduct);
       console.log("Product updated successfully!");
+      fetchProducts(); // بهروزرسانی لیست محصولات پس ا�� ویرایش 
     } catch (error) {
       console.error("Error updating product:", error);
     }
