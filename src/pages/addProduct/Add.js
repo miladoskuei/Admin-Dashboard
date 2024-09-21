@@ -22,6 +22,8 @@ import React, { useEffect, useState } from "react";
 import { database } from "../../firebaseConfig";
 import { ref, set } from "firebase/database";
 import { fetchDatas } from "../../helpers/fetch";
+import { useContext } from "react";
+import ProductsContext from "../../contexts/ProductsContext";
 
 const AddProduct = () => {
   const [productCode, setProductCode] = useState("");
@@ -30,28 +32,17 @@ const AddProduct = () => {
   const [productStock, setProductStock] = useState("");
   const [message, setMessage] = useState("");
 
-  useEffect(() => {
-    fetchDatas(
-      "https://myproject-4e193-default-rtdb.firebaseio.com/products.json"
-    ).then((data) => {
-      if (data == null) {
-        setProductCode(1);
-        return 0; // stop the function
-      }
-      console.log(data);
-      const newArray = data.slice(1, data.length);
-      const transformedArray = newArray.map((subArray) => subArray[1]);
-      console.log(
-        "last",
-        Number(transformedArray[transformedArray.length - 1].code)
-      );
+  const Products = useContext(ProductsContext);
+  console.log("ddd", Products);
 
-      const lastCode = Number(
-        transformedArray[transformedArray.length - 1].code
-      );
-      setProductCode(lastCode + 1);
-    });
-  }, []);
+  useEffect(() => {
+    if (Products && Products.length > 0) {
+      const lastProduct = Products[Products.length - 1].code;
+      setProductCode(lastProduct + 1);
+    } else {
+      setProductCode(1);
+    }
+  }, [Products]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -82,7 +73,7 @@ const AddProduct = () => {
       <div style={inputGroupStyle}>
         <label> product code: </label>{" "}
         <input
-        disabled
+          disabled
           style={inputs}
           type="text"
           value={productCode}
