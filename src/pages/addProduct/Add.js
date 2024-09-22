@@ -24,6 +24,8 @@ import { ref, set } from "firebase/database";
 import { fetchDatas } from "../../helpers/fetch";
 import { useContext } from "react";
 import ProductsContext from "../../contexts/ProductsContext";
+import ErrorModal from "../../components/Topbar/errorModal/ErrorModal";
+import SpinnerModal from "../../components/Topbar/spinner/Spinner";
 
 const AddProduct = () => {
   const [productCode, setProductCode] = useState("");
@@ -31,8 +33,15 @@ const AddProduct = () => {
   const [productPrice, setProductPrice] = useState("");
   const [productStock, setProductStock] = useState("");
   const [message, setMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
 
-  const { products : Products, fetchProducts } = useContext(ProductsContext);
+  const {
+    products: Products,
+    fetchProducts,
+    isLoading: loading,
+    isError: error,
+  } = useContext(ProductsContext);
 
   useEffect(() => {
     if (Products && Products.length > 0) {
@@ -43,7 +52,13 @@ const AddProduct = () => {
     }
   }, [Products]);
 
+  useEffect(() => {
+    setIsLoading(isLoading);
+    setIsError(isError);
+  }, [isLoading, isError]);
+
   const handleSubmit = (e) => {
+    setIsLoading(true);
     e.preventDefault();
     const newProduct = {
       code: productCode,
@@ -53,8 +68,16 @@ const AddProduct = () => {
     };
     console.log(newProduct);
 
-    set(ref(database, "products/" + productCode), newProduct)
+    ////fetching timeout for product promise is creating
+    const timeoutPromise = new Promise((_, reject) =>
+      setTimeout(() => reject(new Error("check your network please")), 5000)
+    );
+
+    //// response recieved promise is creating
+
+    const addProductPromise = set(ref(database, "products/" + productCode), newProduct)
       .then(() => {
+        setIsLoading(false);
         setMessage("محصول با موفقیت اضافه شد!");
         setProductCode((prev) => Number(prev) + 1);
         setProductName("");
@@ -63,61 +86,81 @@ const AddProduct = () => {
         fetchProducts();
       })
       .catch((error) => {
+        setIsLoading(false);
+        setIsError(true);
+
         console.error("Error adding product:", error);
         setMessage("خطا در اضافه کردن محصول.");
+      });
+
+
+      ///racing product fetching data
+
+    Promise.race([addProductPromise, timeoutPromise])
+      .finally(() => setIsLoading(false))
+      .catch((error) => {
+        setIsError(true);
+        console.error(error);
+        setMessage(error.message);
       });
   };
 
   return (
-    <form onSubmit={handleSubmit} style={formStyle}>
-      <div style={inputGroupStyle}>
-        <label> product code: </label>{" "}
-        <input
-          disabled
-          style={inputs}
-          type="text"
-          value={productCode}
-          onChange={(e) => setProductCode(e.target.value)}
-          required
-        />
-      </div>{" "}
-      <div style={inputGroupStyle}>
-        <label> product name: </label>{" "}
-        <input
-          style={inputs}
-          type="text"
-          value={productName}
-          onChange={(e) => setProductName(e.target.value)}
-          required
-        />
-      </div>{" "}
-      <div style={inputGroupStyle}>
-        <label> product price: </label>{" "}
-        <input
-          style={inputs}
-          type="number"
-          value={productPrice}
-          onChange={(e) => setProductPrice(e.target.value)}
-          min="0"
-          required
-        />
-      </div>{" "}
-      <div style={inputGroupStyle}>
-        <label> product count: </label>{" "}
-        <input
-          style={inputs}
-          type="number"
-          value={productStock}
-          onChange={(e) => setProductStock(e.target.value)}
-          min="0"
-          required
-        />
-      </div>{" "}
-      <button type="submit" style={buttonStyle}>
-        اضافه کردن محصول{" "}
-      </button>{" "}
-      {message && <p> {message} </p>}{" "}
-    </form>
+    <div className="container" style={{ flex: 4, textAlign: "center" }}>
+
+
+        <form onSubmit={handleSubmit} style={formStyle}>
+          <div style={inputGroupStyle}>
+            <label> product code: </label>{" "}
+            <input
+              disabled
+              style={inputs}
+              type="text"
+              value={productCode}
+              onChange={(e) => setProductCode(e.target.value)}
+              required
+            />
+          </div>{" "}
+          <div style={inputGroupStyle}>
+            <label> product name: </label>{" "}
+            <input
+              style={inputs}
+              type="text"
+              value={productName}
+              onChange={(e) => setProductName(e.target.value)}
+              required
+            />
+          </div>{" "}
+          <div style={inputGroupStyle}>
+            <label> product price: </label>{" "}
+            <input
+              style={inputs}
+              type="number"
+              value={productPrice}
+              onChange={(e) => setProductPrice(e.target.value)}
+              min="0"
+              required
+            />
+          </div>{" "}
+          <div style={inputGroupStyle}>
+            <label> product count: </label>{" "}
+            <input
+              style={inputs}
+              type="number"
+              value={productStock}
+              onChange={(e) => setProductStock(e.target.value)}
+              min="0"
+              required
+            />
+          </div>{" "}
+          <button type="submit" style={buttonStyle}>
+            اضافه کردن محصول{" "}
+          </button>{" "}
+          {message && <ErrorModal message={message} onClose={()=>{setMessage(null)}} ></ErrorModal>}{" "}
+          {isLoading && <SpinnerModal></SpinnerModal>}{" "}
+        </form>
+      {" "}
+    </div>
   );
 };
 

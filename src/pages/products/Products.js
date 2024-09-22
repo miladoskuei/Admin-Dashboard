@@ -9,10 +9,13 @@ import ProductsContext from "../../contexts/ProductsContext";
 import { ref, remove } from "firebase/database";
 import { database } from "../../firebaseConfig";
 import Spinner from "../../components/Topbar/spinner/Spinner";
+import ErrorModal from "../../components/Topbar/errorModal/ErrorModal";
 // import "DeleteOutlineIcon" from "@mui/icons-material/DeleteOutline";
 
 export default function Products() {
   const [products, setproducts] = useState([]);
+
+  const [showError, setShowError] = useState(true);
 
   const {
     products: productsContext,
@@ -20,6 +23,10 @@ export default function Products() {
     isLoading,
     error,
   } = useContext(ProductsContext);
+
+  const handleCloseError = () => {
+    setShowError(false);
+  };
 
   useEffect(() => {
     setproducts(productsContext);
@@ -57,21 +64,6 @@ export default function Products() {
       field: "name",
       headerName: "title",
       width: 200,
-      // renderCell: (params) => {
-      //   console.log("params :", params);
-      //   return (
-      //     <>
-      //       <div className="userRowContainer">
-      //         <img
-      //           className="userImg"
-      //           src={`${process.env.PUBLIC_URL}/${params.row.img}`}
-      //           alt=""
-      //         />{" "}
-      //         {params.row.title}{" "}
-      //       </div>{" "}
-      //     </>
-      //   );
-      // },
     },
     {
       field: "price",
@@ -83,16 +75,6 @@ export default function Products() {
       headerName: "Inventory",
       width: 240,
     },
-    // {
-    //   field: "status",
-    //   headerName: "status",
-    //   width: 200,
-    // },
-    // {
-    //   field: "transaction",
-    //   headerName: "transaction",
-    //   width: 200,
-    // },
     {
       field: "action",
       headerName: "action",
@@ -125,9 +107,11 @@ export default function Products() {
     <div className="userTable">
       {" "}
       {isLoading ? (
-        <Spinner></Spinner>
-      ) : error ? (
-        <div> Error: {error.message} </div>
+        <Spinner> </Spinner>
+      ) : error && showError ? (
+        <ErrorModal onClose={handleCloseError} message="check your network access please">
+          {" "}
+        </ErrorModal>
       ) : (
         <DataGrid
           className="data-grid"
