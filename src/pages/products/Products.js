@@ -4,22 +4,22 @@ import { DataGrid } from "@mui/x-data-grid";
 import { useState } from "react";
 import "./products.css";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import { ourProducts } from "../../datas/routes/ourUsers";
-import { clear } from "@testing-library/user-event/dist/clear";
-
-import { fetchDatas } from "../../helpers/fetch";
-import { useQuery } from "react-query";
 import { useContext } from "react";
 import ProductsContext from "../../contexts/ProductsContext";
-
 import { ref, remove } from "firebase/database";
-import { database } from "../../firebaseConfig"
+import { database } from "../../firebaseConfig";
+import Spinner from "../../components/Topbar/spinner/Spinner";
 // import "DeleteOutlineIcon" from "@mui/icons-material/DeleteOutline";
 
 export default function Products() {
   const [products, setproducts] = useState([]);
 
-  const { products: productsContext ,fetchProducts} = useContext(ProductsContext);
+  const {
+    products: productsContext,
+    fetchProducts,
+    isLoading,
+    error,
+  } = useContext(ProductsContext);
 
   useEffect(() => {
     setproducts(productsContext);
@@ -35,9 +35,6 @@ export default function Products() {
   const deleteProduct = async (code) => {
     try {
       await remove(ref(database, `products/${code}`));
-      setproducts((prevProducts) =>
-        prevProducts.filter((product) => product.code !== code)
-      );
       fetchProducts(); // بهروزرسانی لیست محصولات پس از حذف
     } catch (error) {
       console.error("Error deleting product:", error);
@@ -126,12 +123,19 @@ export default function Products() {
 
   return (
     <div className="userTable">
-      <DataGrid
-        className="data-grid"
-        rows={products}
-        columns={columns}
-        getRowId={(row) => row.code}
-      />{" "}
+      {" "}
+      {isLoading ? (
+        <Spinner></Spinner>
+      ) : error ? (
+        <div> Error: {error.message} </div>
+      ) : (
+        <DataGrid
+          className="data-grid"
+          rows={products}
+          columns={columns}
+          getRowId={(row) => row.code}
+        />
+      )}{" "}
       <Link to={"/Addproducts"}>
         <button className="productAddButton"> Add Product </button>{" "}
       </Link>{" "}

@@ -1,21 +1,17 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import "./product.css";
 import Chart from "../../components/Topbar/chart/Chart";
 import { product as productDatas } from "../../datas/routes/productData";
 import PublishIcon from "@mui/icons-material/Publish";
 import { useMediaQuery } from "react-responsive";
-import { useNavigate } from "react-router-dom";
 import { database } from "../../firebaseConfig";
 import { useEffect } from "react";
-
 import { ref, get, update } from "firebase/database";
-
 import { useParams } from "react-router-dom";
 import ProductsContext from "../../contexts/ProductsContext";
 import { useContext } from "react";
 export default function Product() {
-  const isLarge = useMediaQuery({ minWidth: 1540 });
+  // const isLarge = useMediaQuery({ minWidth: 1540 });
   const isSmall = useMediaQuery({ maxWidth: 700 });
 
   const { fetchProducts} = useContext(ProductsContext);
