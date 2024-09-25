@@ -1,12 +1,31 @@
 .userTable {
-    flex: 4;
+
     border: none;
-    padding: 1rem;
+
     overflow-x: hidden;
-    
     /* padding: 0 4rem; */
 }
-.data-grid{
+.usersTable-container{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+}
+.users-container{
+    flex: 4;
+    padding: 1rem;
+}
+
+.spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex: 4;
+    /* ارتفاع کامل صفحه */
+}
+
+.data-grid {
     padding: 0 4rem;
 }
 
@@ -23,14 +42,11 @@
     object-fit: cover;
 }
 
-
 .edit {
     display: flex;
     align-items: center;
     cursor: pointer;
     /* display: block; */
-
-
 }
 
 .btnEdit {
@@ -40,15 +56,16 @@
     color: white;
     background-color: #3bb077;
     cursor: pointer;
-
 }
-.btncontainer{
+
+.btncontainer {
     display: flex;
     align-items: center;
     height: 100%;
     gap: 1rem;
 }
-.iconcontainer{
+
+.iconcontainer {
     display: flex;
     align-items: center;
     cursor: pointer;

@@ -8,7 +8,7 @@ import { useContext } from "react";
 import ProductsContext from "../../contexts/ProductsContext";
 import { ref, remove } from "firebase/database";
 import { database } from "../../firebaseConfig";
-import Spinner from "../../components/Topbar/spinner/Spinner";
+import { Spinner } from "react-bootstrap";
 import ErrorModal from "../../components/Topbar/errorModal/ErrorModal";
 // import "DeleteOutlineIcon" from "@mui/icons-material/DeleteOutline";
 
@@ -22,6 +22,7 @@ export default function Products() {
     fetchProducts,
     isLoading,
     error,
+    fetchProductsWithTimeout,
   } = useContext(ProductsContext);
 
   const handleCloseError = () => {
@@ -42,7 +43,7 @@ export default function Products() {
   const deleteProduct = async (code) => {
     try {
       await remove(ref(database, `products/${code}`));
-      fetchProducts(); // بهروزرسانی لیست محصولات پس از حذف
+      fetchProductsWithTimeout(); // بهروزرسانی لیست محصولات پس از حذف
     } catch (error) {
       console.error("Error deleting product:", error);
     }
@@ -104,22 +105,29 @@ export default function Products() {
   ];
 
   return (
-    <div className="userTable">
-      {" "}
-      {isLoading ? (
-        <Spinner> </Spinner>
-      ) : error && showError ? (
-        <ErrorModal onClose={handleCloseError} message="check your network access please">
-          {" "}
-        </ErrorModal>
-      ) : (
-        <DataGrid
-          className="data-grid"
-          rows={products}
-          columns={columns}
-          getRowId={(row) => row.code}
-        />
-      )}{" "}
+    <div className="products-container">
+      <div className="products-table">
+        {" "}
+        {isLoading ? (
+          <div className="spinner-container">
+            <Spinner> </Spinner>{" "}
+          </div>
+        ) : error && showError ? (
+          <ErrorModal
+            onClose={handleCloseError}
+            message="check your network access please"
+          >
+            {" "}
+          </ErrorModal>
+        ) : (
+          <DataGrid
+            className="data-grid"
+            rows={products}
+            columns={columns}
+            getRowId={(row) => row.code}
+          />
+        )}{" "}
+      </div>{" "}
       <Link to={"/Addproducts"}>
         <button className="productAddButton"> Add Product </button>{" "}
       </Link>{" "}

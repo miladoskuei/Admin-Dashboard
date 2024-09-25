@@ -1,9 +1,12 @@
 import Home from "../../pages/Home/Home";
 import Users from "../../pages/Users/Users";
-import Newuser from "../../pages/Newusers/Newuser";
+
 import Products from "../../pages/products/Products";
 import Product from "../../pages/product/Product";
 import AddProduct from "../../pages/addProduct/Add.js";
+import AddUser from "../../pages/addUser/AddUser.js";
+import { element } from "prop-types";
+import User from "../../pages/user/User";
 
 const myroutes = [
   {
@@ -15,13 +18,14 @@ const myroutes = [
     element: <AddProduct />,
   },
   {
+    path: "/AddUser",
+    element: <AddUser />,
+  },
+  {
     path: "/users",
     element: <Users />,
   },
-  {
-    path: "/newUser",
-    element: <Newuser />,
-  },
+
   {
     path: "/products",
     element: <Products />,
@@ -33,6 +37,10 @@ const myroutes = [
   {
     path: "/products/:productId",
     element: <Product />,
+  },
+  {
+    path: "/users/:userId",
+    element: <User />,
   },
 ];
 export default myroutes;

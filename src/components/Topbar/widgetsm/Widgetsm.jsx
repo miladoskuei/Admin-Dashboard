@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { useQuery } from "react-query";
 import useFetch from "../../../custom hooks/useFetch";
 import { func } from "prop-types";
-import { fetchDatas } from "../../../helpers/fetch";
+import { fetchDatas, fetchWithTimeout } from "../../../helpers/fetch";
 
 export default function Widgetsm() {
   // const {
@@ -22,7 +22,10 @@ export default function Widgetsm() {
     isError,
     error,
     data: users,
-  } = useQuery("Users",() => fetchDatas("https://myproject-4e193-default-rtdb.firebaseio.com/user1.json"));
+  } = useQuery("Users", () =>
+    fetchWithTimeout("https://myproject-4e193-default-rtdb.firebaseio.com/user1.json")
+  );
+
 
   //////////////
 
@@ -63,7 +66,11 @@ export default function Widgetsm() {
         {users &&
           users.map((user, index) => (
             <li key={index} className="widget-list-item">
-              <img className="widget-img" src={`${process.env.PUBLIC_URL}/logo192.png`} alt="User" />
+              <img
+                className="widget-img"
+                src={`${process.env.PUBLIC_URL}/logo192.png`}
+                alt="User"
+              />
               <div className="user">
                 <span className="username"> {user[1].username} </span>{" "}
                 <span className="user-role"> {user[1].role} </span>{" "}

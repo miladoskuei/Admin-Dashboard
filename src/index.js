@@ -5,7 +5,8 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
-import {ProductsProvider} from "./contexts/ProductsContext";
+import { ProductsProvider } from "./contexts/ProductsContext";
+import { UsersProvider } from "./contexts/UsersContexts";
 import "bootstrap/dist/css/bootstrap.css";
 
 const queryClient = new QueryClient();
@@ -16,7 +17,9 @@ root.render(
     <BrowserRouter>
       <QueryClientProvider client={queryClient}>
         <ProductsProvider>
-          <App />
+          <UsersProvider>
+            <App />
+          </UsersProvider>{" "}
         </ProductsProvider>{" "}
       </QueryClientProvider>{" "}
     </BrowserRouter>{" "}

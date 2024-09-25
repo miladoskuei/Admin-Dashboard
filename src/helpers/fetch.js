@@ -5,9 +5,18 @@ export const fetchDatas = async (url) => {
 
   if (data == null) {
     return null;
-  }else{
+  } else {
     return Object.entries(data);
   }
+};
 
-  
+export const fetchWithTimeout = (url, timeout = 1000) => {
+  return Promise.race([
+    fetchDatas(url),
+    new Promise((_, reject) =>
+      setTimeout(() => {
+        reject(new Error("Request timed out"));
+      }, timeout)
+    ),
+  ]);
 };

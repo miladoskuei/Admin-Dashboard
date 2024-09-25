@@ -1,31 +1,11 @@
-// import React, { useState } from "react";
-// import { database } from "../../firebaseConfig";
-// import { ref, set } from "firebase/database";
-
-// const AddProduct = () => {
-//   const [productCode, setProductCode] = useState("");
-//   const [productName, setProductName] = useState("");
-//   const [productPrice, setProductPrice] = useState("");
-//   const [productStock, setProductStock] = useState("");
-//   const [message, setMessage] = useState("");
-
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-//     const newProduct = {
-//       code: productCode,
-//       name: productName,
-//       price: productPrice,
-//       stock: productStock,
-//     };
-//   };
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { database } from "../../firebaseConfig";
 import { ref, set } from "firebase/database";
-import { fetchDatas } from "../../helpers/fetch";
-import { useContext } from "react";
 import ProductsContext from "../../contexts/ProductsContext";
 import ErrorModal from "../../components/Topbar/errorModal/ErrorModal";
-import SpinnerModal from "../../components/Topbar/spinner/Spinner";
+import { Spinner } from "react-bootstrap";
+import { TextField, Button, Container, Typography, Box } from "@mui/material";
+
 
 const AddProduct = () => {
   const [productCode, setProductCode] = useState("");
@@ -68,14 +48,14 @@ const AddProduct = () => {
     };
     console.log(newProduct);
 
-    ////fetching timeout for product promise is creating
     const timeoutPromise = new Promise((_, reject) =>
       setTimeout(() => reject(new Error("check your network please")), 5000)
     );
 
-    //// response recieved promise is creating
-
-    const addProductPromise = set(ref(database, "products/" + productCode), newProduct)
+    const addProductPromise = set(
+      ref(database, "products/" + productCode),
+      newProduct
+    )
       .then(() => {
         setIsLoading(false);
         setMessage("محصول با موفقیت اضافه شد!");
@@ -88,13 +68,9 @@ const AddProduct = () => {
       .catch((error) => {
         setIsLoading(false);
         setIsError(true);
-
         console.error("Error adding product:", error);
         setMessage("خطا در اضافه کردن محصول.");
       });
-
-
-      ///racing product fetching data
 
     Promise.race([addProductPromise, timeoutPromise])
       .finally(() => setIsLoading(false))
@@ -106,98 +82,72 @@ const AddProduct = () => {
   };
 
   return (
-    <div className="container" style={{ flex: 4, textAlign: "center" }}>
+    <div className="container">
 
 
-        <form onSubmit={handleSubmit} style={formStyle}>
-          <div style={inputGroupStyle}>
-            <label> product code: </label>{" "}
-            <input
-              disabled
-              style={inputs}
-              type="text"
-              value={productCode}
-              onChange={(e) => setProductCode(e.target.value)}
-              required
-            />
-          </div>{" "}
-          <div style={inputGroupStyle}>
-            <label> product name: </label>{" "}
-            <input
-              style={inputs}
-              type="text"
-              value={productName}
-              onChange={(e) => setProductName(e.target.value)}
-              required
-            />
-          </div>{" "}
-          <div style={inputGroupStyle}>
-            <label> product price: </label>{" "}
-            <input
-              style={inputs}
-              type="number"
-              value={productPrice}
-              onChange={(e) => setProductPrice(e.target.value)}
-              min="0"
-              required
-            />
-          </div>{" "}
-          <div style={inputGroupStyle}>
-            <label> product count: </label>{" "}
-            <input
-              style={inputs}
-              type="number"
-              value={productStock}
-              onChange={(e) => setProductStock(e.target.value)}
-              min="0"
-              required
-            />
-          </div>{" "}
-          <button type="submit" style={buttonStyle}>
-            اضافه کردن محصول{" "}
-          </button>{" "}
-          {message && <ErrorModal message={message} onClose={()=>{setMessage(null)}} ></ErrorModal>}{" "}
-          {isLoading && <SpinnerModal></SpinnerModal>}{" "}
-        </form>
-      {" "}
+    <Container maxWidth="sm" style={{flex:4}}>
+      <Box
+        component="form"
+        onSubmit={handleSubmit}
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          gap: 2,
+          mt: 5,
+          p: 3,
+          borderRadius: 2,
+          boxShadow: 3,
+          bgcolor: "background.paper",
+        }}
+      >
+        <Typography variant="h5" component="h2" gutterBottom>
+          Add New Product{" "}
+        </Typography>{" "}
+        <TextField
+          label="Product Code"
+          value={productCode}
+          disabled
+          fullWidth
+        />
+        <TextField
+          label="Product Name"
+          value={productName}
+          onChange={(e) => setProductName(e.target.value)}
+          required
+          fullWidth
+        />
+        <TextField
+          label="Product Price"
+          type="number"
+          value={productPrice}
+          onChange={(e) => setProductPrice(e.target.value)}
+          required
+          fullWidth
+        />
+        <TextField
+          label="Product Stock"
+          type="number"
+          value={productStock}
+          onChange={(e) => setProductStock(e.target.value)}
+          required
+          fullWidth
+        />
+        <Button variant="contained" color="primary" type="submit">
+          Add Product{" "}
+        </Button>{" "}
+      </Box>{" "}
+      {isLoading && <Spinner></Spinner>}{" "}
+      {message && (
+        <ErrorModal
+          message={message}
+          onClose={() => {
+            setMessage(null);
+          }}
+        />
+      )}{" "}
+    </Container>
     </div>
   );
-};
-
-const formStyle = {
-  flex: 4,
-  display: "flex",
-  flexDirection: "column",
-  margin: "0 auto",
-  padding: "20px",
-  border: "1px solid #ccc",
-  borderRadius: "8px",
-  backgroundColor: "white",
-};
-
-const inputGroupStyle = {
-  marginBottom: "15px",
-  display: "flex",
-  justifyContent: "space-between",
-  width: "24rem",
-};
-
-const buttonStyle = {
-  padding: "10px 20px",
-  backgroundColor: "#007bff",
-  color: "#fff",
-  border: "none",
-  borderRadius: "4px",
-  cursor: "pointer",
-  maxWidth: "12rem",
-};
-const inputs = {
-  border: "none",
-  border: "1px solid #007bff",
-  backgroundColor: "#f2f8f8",
-  borderRadius: "1rem",
-  padding: "0.5rem",
-  fontWeight: "bold",
 };
 
 export default AddProduct;
