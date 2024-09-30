@@ -31,59 +31,15 @@ export default function Sidebar() {
                 products{" "}
               </li>{" "}
             </Link>{" "}
+            <Link className="link" to={"/transactions"}>
+              <li className={location.pathname == '/dashboard' ? 'sidebar-icon active':'sidebar-icon'}>
+                <LineStyleIcon className="icon"> </LineStyleIcon>
+                Transactions
+              </li>{" "}
+            </Link>
           </ul>{" "}
         </div>{" "}
-        <div className="sidebar-menu">
-          <h3 className="title"> dashboard </h3>{" "}
-          <ul className="sidebar-list">
-            <li className="sidebar-icon active">
-              <LineStyleIcon className="icon"> </LineStyleIcon>
-              Home{" "}
-            </li>{" "}
-            <li className="sidebar-icon">
-              <TimelineIcon className="icon"> </TimelineIcon>
-              analytic{" "}
-            </li>{" "}
-            <li className="sidebar-icon">
-              <TrendingUpIcon className="icon"> </TrendingUpIcon>
-              DSADADAS{" "}
-            </li>{" "}
-          </ul>{" "}
-        </div>{" "}
-        <div className="sidebar-menu">
-          <h3 className="title"> dashboard </h3>{" "}
-          <ul className="sidebar-list">
-            <li className="sidebar-icon active">
-              <LineStyleIcon className="icon"> </LineStyleIcon>
-              Home{" "}
-            </li>{" "}
-            <li className="sidebar-icon">
-              <TimelineIcon className="icon"> </TimelineIcon>
-              analytic{" "}
-            </li>{" "}
-            <li className="sidebar-icon">
-              <TrendingUpIcon className="icon"> </TrendingUpIcon>
-              DSADADAS{" "}
-            </li>{" "}
-          </ul>{" "}
-        </div>{" "}
-        <div className="sidebar-menu">
-          <h3 className="title"> dashboard </h3>{" "}
-          <ul className="sidebar-list">
-            <li className="sidebar-icon active">
-              <LineStyleIcon className="icon"> </LineStyleIcon>
-              Home{" "}
-            </li>{" "}
-            <li className="sidebar-icon">
-              <TimelineIcon className="icon"> </TimelineIcon>
-              analytic{" "}
-            </li>{" "}
-            <li className="sidebar-icon">
-              <TrendingUpIcon className="icon"> </TrendingUpIcon>
-              DSADADAS{" "}
-            </li>{" "}
-          </ul>{" "}
-        </div>{" "}
+       
       </div>{" "}
     </div>
   );

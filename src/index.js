@@ -8,6 +8,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { ProductsProvider } from "./contexts/ProductsContext";
 import { UsersProvider } from "./contexts/UsersContexts";
 import "bootstrap/dist/css/bootstrap.css";
+import { TransactionsProvider } from "./contexts/TransactionContext";
 
 const queryClient = new QueryClient();
 
@@ -18,7 +19,9 @@ root.render(
       <QueryClientProvider client={queryClient}>
         <ProductsProvider>
           <UsersProvider>
-            <App />
+            <TransactionsProvider>
+              <App />
+            </TransactionsProvider>
           </UsersProvider>{" "}
         </ProductsProvider>{" "}
       </QueryClientProvider>{" "}

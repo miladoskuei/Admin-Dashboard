@@ -1,0 +1,19 @@
+.responsive-input {
+    height: auto;
+    min-height: 40px;
+    /* حداقل ارتفاع */
+    max-height: 100px;
+    /* حداکثر ارتفاع */
+}
+
+@media (max-height: 800px) {
+    .responsive-input {
+        min-height: 30px;
+    }
+}
+
+@media (max-height: 600px) {
+    .responsive-input {
+        min-height: 20px;
+    }
+}

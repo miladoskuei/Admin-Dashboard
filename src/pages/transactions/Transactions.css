@@ -1,0 +1,69 @@
+
+/* transactions.css */
+.transactions-container {
+  padding: 20px;
+  flex: 6;
+  flex-direction: column;
+  display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    width: 70%;
+  }
+  
+  .transactions-table {
+  margin-top: 20px;
+  }
+  
+  .spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  }
+  
+  .data-grid {
+  height: 400px;
+  width: '100%';
+  }
+  
+  .transactionAddButton {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #3f51b5;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  }
+  
+  .transactionAddButton:hover {
+  background-color: #303f9f;
+  }
+  
+  .btncontainer {
+  display: flex;
+  align-items: center;
+  }
+  
+  .btnEdit {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  }
+  
+  .btnEdit:hover {
+  background-color: #388e3c;
+  }
+  
+  .iconcontainer {
+  margin-left: 10px;
+  }
+  
+  .deleteBtn {
+  color: red;
+  cursor: pointer;
+  }
+
