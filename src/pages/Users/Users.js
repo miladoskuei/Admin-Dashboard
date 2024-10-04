@@ -12,8 +12,11 @@ import { useContext } from "react";
 import { Spinner } from "react-bootstrap";
 import { ref, remove } from "firebase/database";
 import { database } from "../../firebaseConfig";
+import { useQuery } from "react-query";
+import { fetchDatas } from "../../helpers/fetch";
+
 export default function Users() {
-  const [users, setUsers] = useState([]);
+  // const [users, setUsers] = useState([]);
 
   async function deleteUser(id) {
     try {
@@ -31,11 +34,6 @@ export default function Users() {
     error,
     fetchUsersWithTimeout,
   } = useContext(UsersContext);
-
-  useEffect(() => {
-    setUsers(usersContext);
-  }, [usersContext]);
-  console.log("ssss", usersContext);
 
   const columns = [
     {
@@ -120,7 +118,7 @@ export default function Users() {
             <DataGrid
               getRowId={(row) => row.code}
               className="data-grid"
-              rows={users}
+              rows={usersContext}
               columns={columns}
             />{" "}
           </div>{" "}

@@ -10,6 +10,8 @@ import User from "../../pages/user/User";
 import Transactions from "../../pages/transactions/Transactions";
 import AddTransaction from "../../pages/addTransaction/AddTransaction";
 import Transaction from "../../pages/transaction/Transaction";
+import Faq from "../../components/Topbar/FAQ/Faq.js";
+import AddFaq from "../../components/Topbar/addFaq/addFaq.js";
 
 const myroutes = [
   {
@@ -40,6 +42,14 @@ const myroutes = [
   {
     path: "/transactions",
     element: <Transactions />,
+  },
+  {
+    path: "/Faq",
+    element: <Faq> </Faq>,
+  },
+  {
+    path: "/faq/add",
+    element: <AddFaq></AddFaq>,
   },
   {
     path: "*",

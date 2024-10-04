@@ -48,3 +48,9 @@
     /* padding: 3px 5px; */
     border-radius: 50%;
 }
+
+body.dark-mode {
+    background-color: black;
+    color: white;
+    }
+    

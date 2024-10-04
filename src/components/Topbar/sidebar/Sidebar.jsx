@@ -37,6 +37,12 @@ export default function Sidebar() {
                 Transactions
               </li>{" "}
             </Link>
+            <Link className="link" to={"/FAQ"}>
+              <li className={location.pathname == '/dashboard' ? 'sidebar-icon active':'sidebar-icon'}>
+                <LineStyleIcon className="icon"> </LineStyleIcon>
+                FAQ
+              </li>{" "}
+            </Link>
           </ul>{" "}
         </div>{" "}
        

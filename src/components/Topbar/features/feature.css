@@ -12,7 +12,7 @@
     flex: auto;
     padding: 1.2rem;
     border-radius: 1rem;
-    background-color: #fff;
+    /* background-color: #fff; */
     box-shadow: 0 0 15px -10px rgba(0, 0, 0, 0.75);
 
 }
