@@ -11,9 +11,11 @@ export default function Sidebar() {
     <div className="sidebar">
       <div className="sidebar-wrapper">
         <div className="sidebar-menu">
+        
+
           <h3 className="title"> dashboard </h3>{" "}
           <ul className="sidebar-list">
-            <Link className="link" to={"/"}>
+            <Link className="link" to={"/Home"}>
               <li className={location.pathname == '/' ? 'sidebar-icon active':'sidebar-icon'}>
                 <LineStyleIcon className="icon"> </LineStyleIcon>
                 Home{" "}
@@ -35,6 +37,12 @@ export default function Sidebar() {
               <li className={location.pathname == '/dashboard' ? 'sidebar-icon active':'sidebar-icon'}>
                 <LineStyleIcon className="icon"> </LineStyleIcon>
                 Transactions
+              </li>{" "}
+            </Link>
+            <Link className="link" to={"/admins"}>
+              <li className={location.pathname == '/admins' ? 'sidebar-icon active':'sidebar-icon'}>
+                <LineStyleIcon className="icon"> </LineStyleIcon>
+                Admin{" "}
               </li>{" "}
             </Link>
             <Link className="link" to={"/FAQ"}>

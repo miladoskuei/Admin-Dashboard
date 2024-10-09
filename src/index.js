@@ -9,7 +9,8 @@ import { ProductsProvider } from "./contexts/ProductsContext";
 import { UsersProvider } from "./contexts/UsersContexts";
 import "bootstrap/dist/css/bootstrap.css";
 import { TransactionsProvider } from "./contexts/TransactionContext";
-
+import { AdminsProvider } from "./contexts/Admins";
+import {AuthProvider} from "./contexts/Islogin";
 const queryClient = new QueryClient();
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -17,13 +18,17 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <QueryClientProvider client={queryClient}>
-        <ProductsProvider>
-          <UsersProvider>
-            <TransactionsProvider>
-              <App />
-            </TransactionsProvider>
-          </UsersProvider>{" "}
-        </ProductsProvider>{" "}
+        <AuthProvider>
+        <AdminsProvider>
+          <ProductsProvider>
+            <UsersProvider>
+              <TransactionsProvider>
+                <App />
+              </TransactionsProvider>{" "}
+            </UsersProvider>{" "}
+          </ProductsProvider>{" "}
+        </AdminsProvider>{" "}
+        </AuthProvider>
       </QueryClientProvider>{" "}
     </BrowserRouter>{" "}
   </React.StrictMode>

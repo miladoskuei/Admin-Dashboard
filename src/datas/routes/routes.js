@@ -12,11 +12,26 @@ import AddTransaction from "../../pages/addTransaction/AddTransaction";
 import Transaction from "../../pages/transaction/Transaction";
 import Faq from "../../components/Topbar/FAQ/Faq.js";
 import AddFaq from "../../components/Topbar/addFaq/addFaq.js";
+import Admins from "../../pages/admins/Admins.js";
+import AddAdmin from "../../pages/admins/AddAdmin.js";
+import LoginForm from "../../pages/LoginForm/LoginForm.js";
 
 const myroutes = [
   {
     path: "/",
+    element: <LoginForm />,
+  },
+  {
+    path: "/Home",
     element: <Home />,
+  },
+  {
+    path: "/admins",
+    element: <Admins/>,
+  },
+  {
+    path: "/addadmin",
+    element: <AddAdmin/>,
   },
   {
     path: "/Addproducts",

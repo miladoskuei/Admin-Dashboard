@@ -1,42 +1,29 @@
 import React from "react";
+import { useList } from "react-firebase-hooks/database";
+import { ref } from "firebase/database";
+import { database } from "../../../firebaseConfig";
 import Faq from "react-faq-component";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-
-
+import "./faq.css"
 
 const AddButton = styled.button`
-padding: 10px 20px;
-font-size: 16px;
-color: white;
-background-color: #007bff;
-border: none;
-border-radius: 5px;
-cursor: pointer;
-margin-top: 20px;
-display: block;
-margin-left: auto;
-margin-right: auto;
+  padding: 10px 20px;
+  font-size: 16px;
+  color: white;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 
-&:hover {
-background-color: #0056b3;
-}
+  &:hover {
+    background-color: #0056b3;
+  }
 `;
-
-const data = {
-  title: "سوالات متداول",
-  rows: [
-    {
-      title: "سوال اول",
-      content: "جواب سوال اول",
-    },
-    {
-      title: "سوال دوم",
-      content: "جواب سوال دوم",
-    },
-    // سوالات بیشتر
-  ],
-};
 
 const styles = {
   bgColor: "#f9f9f9",
@@ -50,6 +37,7 @@ const styles = {
   rowContentPaddingRight: "20px",
   transitionDuration: "0.5s",
   timingFunc: "ease-in-out",
+  fontFamily: "Roboto, sans-serif",
 };
 
 const config = {
@@ -59,6 +47,19 @@ const config = {
 };
 
 const FaqComponent = () => {
+  const [snapshots, loading, error] = useList(ref(database, "faqs"));
+
+  if (loading) return <div> Loading... </div>;
+  if (error) return <div> Error: {error.message} </div>;
+
+  const data = {
+    title: "Frequently Asked Questions",
+    rows: snapshots.map((snapshot) => ({
+      title: snapshot.val().question,
+      content: snapshot.val().answer,
+    })),
+  };
+
   return (
     <div className="container">
       <Faq data={data} styles={styles} config={config} />{" "}
