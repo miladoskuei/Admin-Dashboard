@@ -1,9 +1,6 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { DataGrid } from "@mui/x-data-grid";
-import { ourUser } from "../../datas/routes/ourUsers";
-import { useState } from "react";
-import { width } from "@mui/system";
 import "./userlist.css";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 // import "DeleteOutlineIcon" from "@mui/icons-material/DeleteOutline";
@@ -12,11 +9,11 @@ import { useContext } from "react";
 import { Spinner } from "react-bootstrap";
 import { ref, remove } from "firebase/database";
 import { database } from "../../firebaseConfig";
-import { useQuery } from "react-query";
-import { fetchDatas } from "../../helpers/fetch";
+import AuthContext from "../../contexts/Islogin";
 
 export default function Users() {
   // const [users, setUsers] = useState([]);
+  const { LogedInUsername } = useContext(AuthContext);
 
   async function deleteUser(id) {
     try {
@@ -122,8 +119,8 @@ export default function Users() {
               columns={columns}
             />{" "}
           </div>{" "}
-          <Link to={"/AddUser"}>
-            <button className="productAddButton"> Add Product </button>{" "}
+          <Link to={`/${LogedInUsername}/AddUser`}>
+            <button className="productAddButton"> Add User </button>{" "}
           </Link>{" "}
         </div>
       )}{" "}

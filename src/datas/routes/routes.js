@@ -22,64 +22,63 @@ const myroutes = [
     element: <LoginForm />,
   },
   {
-    path: "/Home",
+    path: "/:username/home",
     element: <Home />,
   },
   {
-    path: "/admins",
-    element: <Admins/>,
+    path: "/:username/admins",
+    element: <Admins />,
   },
   {
-    path: "/addadmin",
-    element: <AddAdmin/>,
+    path: "/:username/addadmin",
+    element: <AddAdmin />,
   },
   {
-    path: "/Addproducts",
+    path: "/:username/addproducts",
     element: <AddProduct />,
   },
   {
-    path: "/AddUser",
+    path: "/:username/adduser",
     element: <AddUser />,
   },
   {
-    path: "/AddTransaction",
+    path: "/:username/addtransaction",
     element: <AddTransaction />,
   },
   {
-    path: "/users",
+    path: "/:username/users",
     element: <Users />,
   },
-
   {
-    path: "/products",
+    path: "/:username/products",
     element: <Products />,
   },
   {
-    path: "/transactions",
+    path: "/:username/transactions",
     element: <Transactions />,
   },
   {
-    path: "/Faq",
-    element: <Faq> </Faq>,
+    path: "/:username/faq",
+    element: <Faq />,
   },
   {
-    path: "/faq/add",
-    element: <AddFaq></AddFaq>,
+    path: "/:username/faq/add",
+    element: <AddFaq />,
   },
   {
     path: "*",
     element: <h1> Page not found </h1>,
   },
   {
-    path: "/products/:productId",
+    path: "/:username/products/:productId",
     element: <Product />,
   },
   {
-    path: "/users/:userId",
+    path: "/:username/users/:userId",
     element: <User />,
   },
   {
-    path: "/transactions/:transactionId",
+    path: "/:username/transactions/:transactionId",
     element: <Transaction />,
   },
 ];

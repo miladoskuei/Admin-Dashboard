@@ -7,11 +7,13 @@ import { Spinner } from "react-bootstrap";
 import ErrorModal from "../../components/Topbar/errorModal/ErrorModal";
 import TransactionsContext from "../../contexts/TransactionContext";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import AuthContext from "../../contexts/Islogin";
 import "./Transactions.css";
 
 export default function Transactions() {
   const [transactions, setTransactions] = useState([]);
   const [showError, setShowError] = useState(true);
+  const { LogedInUsername } = useContext(AuthContext);
 
   const {
     transactions: transactionsContext,
@@ -141,7 +143,7 @@ export default function Transactions() {
           />
         )}
       </div>
-      <Link to="/AddTransaction">
+      <Link to={`/${LogedInUsername}/AddTransaction`}>
         <button className="transactionAddButton"> Add Transaction </button>
       </Link>
     </div>

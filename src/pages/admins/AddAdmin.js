@@ -9,7 +9,7 @@ import {
   FormControlLabel,
   Checkbox,
 } from "@mui/material";
-import { ref, set } from "firebase/database";
+import { ref, set, get, child } from "firebase/database";
 import { database } from "../../firebaseConfig";
 import AdminsContext from "../../contexts/Admins";
 
@@ -30,7 +30,6 @@ export default function AddAdmin() {
   console.log("my admins ", admins);
 
   const [adminData, setAdminData] = useState({
-    id: admins.length + 1,
     firstName: "",
     lastName: "",
     username: "",
@@ -95,17 +94,25 @@ export default function AddAdmin() {
     return true;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) {
       return;
     }
-    const adminRef = ref(database, "admins/" + adminData.id);
+
+    const dbRef = ref(database);
+    const snapshot = await get(child(dbRef, `admins/${adminData.username}`));
+    if (snapshot.exists()) {
+      setError("This username already exists.");
+      handleErrorModalOpen();
+      return;
+    }
+
+    const adminRef = ref(database, `admins/${adminData.username}`);
     set(adminRef, { ...adminData, isLoggedIn: false })
       .then(() => {
         alert("Admin added successfully!");
         setAdminData({
-          id: admins.length + 1,
           firstName: "",
           lastName: "",
           username: "",
@@ -130,13 +137,6 @@ export default function AddAdmin() {
         Add Admin
       </Typography>
       <form onSubmit={handleSubmit}>
-        <TextField
-          label="Admin ID"
-          value={adminData.id}
-          InputProps={{ readOnly: true }}
-          fullWidth
-          margin="normal"
-        />
         <TextField
           label="First Name"
           name="firstName"

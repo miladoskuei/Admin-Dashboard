@@ -10,10 +10,12 @@ import { ref, remove } from "firebase/database";
 import { database } from "../../firebaseConfig";
 import { Spinner } from "react-bootstrap";
 import ErrorModal from "../../components/Topbar/errorModal/ErrorModal";
+import AuthContext from "../../contexts/Islogin";
 // import "DeleteOutlineIcon" from "@mui/icons-material/DeleteOutline";
 
 export default function Products() {
   const [products, setproducts] = useState([]);
+  const { LogedInUsername } = useContext(AuthContext);
 
   const [showError, setShowError] = useState(true);
 
@@ -128,7 +130,7 @@ export default function Products() {
           />
         )}{" "}
       </div>{" "}
-      <Link to={"/Addproducts"}>
+      <Link to={`/${LogedInUsername}/Addproducts`}>
         <button className="productAddButton"> Add Product </button>{" "}
       </Link>{" "}
     </div>

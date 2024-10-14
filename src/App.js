@@ -9,14 +9,13 @@ import { CSSTransition } from "react-transition-group";
 import LoginForm from "./pages/LoginForm/LoginForm";
 import AuthContext from "./contexts/Islogin";
 import { useContext } from "react";
+
 function App() {
   let router = useRoutes(myroutes);
   console.log(myroutes);
   const isDesktop = useMediaQuery({ minWidth: 768 });
 
-
   const { isLogin, toggleLogin } = useContext(AuthContext);
-
 
   const [hamburgerSidebar, setHamburgerSidebar] = useState(false);
 
@@ -25,8 +24,6 @@ function App() {
   function HamburgerSidebar() {
     setHamburgerSidebar(!hamburgerSidebar);
   }
-
-
 
   return isLogin ? (
     <div style={{ height: "100vh", overflow: "hidden" }}>
@@ -45,7 +42,9 @@ function App() {
         {router}{" "}
       </div>{" "}
     </div>
-  ) : <LoginForm></LoginForm>;
+  ) : (
+    <LoginForm> </LoginForm>
+  );
 }
 
 export default App;
